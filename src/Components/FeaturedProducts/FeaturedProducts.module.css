@@ -1,0 +1,13 @@
+.hover{
+border: none;
+}
+.hover:hover{
+    border: 2px grey solid;
+}
+.addcartbtn{
+    transform: translateY(50px);
+    transition: all 0.5s;
+}
+.hover:hover .addcartbtn{
+    transform: translateY(0px);
+}
