@@ -16,12 +16,15 @@ import Cartcontextprovider, { Cartcontext } from './Components/Context/Cartconte
 import Address from './Components/Address/Address';
 import Orders from './Components/Orders/Orders';
 import Subcategories from './Components/Subcategories/Subcategories';
+import Wishlist from './Components/Wishlist/Wishlist';
+import Wishlistcontextprovider from './Components/Context/Wishlistcontext';
 function App() {
 
   let routers=createHashRouter([
     {path:"/" , element:<Layout/>,children:[
       {index:true ,element:<ProtectedRoute><Home/></ProtectedRoute>},
       {path:'cart',element:<ProtectedRoute><Cart/></ProtectedRoute>},
+      {path:'wishlist',element:<ProtectedRoute><Wishlist/></ProtectedRoute>},
       {path:'categories',element:<ProtectedRoute><Categories/></ProtectedRoute>},
       {path:'brands',element:<ProtectedRoute><Brands/></ProtectedRoute>},
       {path:'login',element:<Login/>},
@@ -38,7 +41,9 @@ function App() {
   return (<>
   <Cartcontextprovider>
   <Usercontextprovider>
+    <Wishlistcontextprovider>
   <RouterProvider router={routers}></RouterProvider>
+    </Wishlistcontextprovider>
   </Usercontextprovider>
   </Cartcontextprovider>
   </>

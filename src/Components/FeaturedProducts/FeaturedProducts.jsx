@@ -5,11 +5,24 @@ import { useQuery } from 'react-query'
 import style from "./FeaturedProducts.module.css"
 import { Link } from 'react-router-dom'
 import { Cartcontext } from '../Context/Cartcontext'
+import toast, { Toaster } from 'react-hot-toast';
+import { wishlistcontext } from '../Context/Wishlistcontext'
+const notify = () => toast("Product added successfully");
+const notify2 = ()=> toast("added to wishlist successfully") 
 export default function FeaturedProducts() {
-    let {addtocart , x} = useContext(Cartcontext)
-    async function addproduct(productid){
-        let response = await addtocart(productid)
-        
+    // async function getuserwishlist(productid){
+    //     let {data} = await getwishlist()
+    //     data?.data.map((product)=>(
+    //         if(document.querySelector("i").classList.add("text-danger")) {
+                
+    //         }
+    //     ))
+           
+    //  }
+    let { addtowishlist ,getwishlist} = useContext(wishlistcontext)
+    let { addtocart, x } = useContext(Cartcontext)
+    async function addproduct(productid) {
+        await addtocart(productid)
     }
     function getfeaturedproducts() {
         return axios.get('https://ecommerce.routemisr.com/api/v1/products')
@@ -58,13 +71,21 @@ export default function FeaturedProducts() {
                                     </span>
                                 </div>
                             </Link>
-                                <button onClick={()=>addproduct(product._id)} className={`${style.addcartbtn} btn bg-main text-center w-100 text-white my-2`}>add to cart</button>
+                            <div className='d-flex justify-content-between'>
+                                <div onClick={notify}>
+                                    <button onClick={() => { addproduct(product._id) }} className={`${style.addcartbtn} btn bg-main text-center text-white my-2`}>add to cart</button>
+                                </div>
+                                <div onClick={notify2}>
+                                    <i className='fas fa-heart my-3' onClick={()=>{addtowishlist(product._id);}}></i>
+                                </div> 
+                            </div>
                         </div>
                     </div>
                 ))}
             </div>
 
         }
+        <Toaster />
     </>
 
 

@@ -5,11 +5,16 @@ import { Bars } from 'react-loader-spinner'
 import { Link } from 'react-router-dom'
 import { Cartcontext } from '../Context/Cartcontext'
 import style from "./Products.module.css"
+import toast, { Toaster } from 'react-hot-toast';
+import { wishlistcontext } from '../Context/Wishlistcontext'
+const notify = () => toast("Product added successfully");
+const notify2 = ()=> toast("added to wishlist successfully")
 export default function Products() {
-  let {addtocart } = useContext(Cartcontext)
-  async function addproduct(productid){
-      let response = await addtocart(productid)
-      
+  let {addtowishlist} = useContext(wishlistcontext)
+  let { addtocart } = useContext(Cartcontext)
+  async function addproduct(productid) {
+    let response = await addtocart(productid)
+
   }
   function getproducts() {
     return axios.get('https://ecommerce.routemisr.com/api/v1/products')
@@ -47,12 +52,20 @@ export default function Products() {
                   </span>
                 </div>
               </Link>
-              <button onClick={() => addproduct(product._id)} className={`${style.addcartbtn} btn bg-main text-center w-100 text-white my-2`}>add to cart</button>
+              <div className='d-flex justify-content-between'>
+                <div onClick={notify}>
+                  <button onClick={() => { addproduct(product._id) }} className={`${style.addcartbtn} btn bg-main text-center text-white my-2`}>add to cart</button>
+                </div>
+                <div onClick={notify2}>
+                  <i className='fas fa-heart my-3' onClick={() => { addtowishlist(product._id); }}></i>
+                </div>
+              </div>
             </div>
           </div>
         ))}
       </div>
 
     }
+    <Toaster />
   </>
 }

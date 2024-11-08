@@ -1,0 +1,14 @@
+.icon{
+    font-size: 20px;
+    transition: 0.3s all;
+}
+.icon:hover{
+    background-color: black;
+    color: white;
+}
+.bold_text{
+    font-weight: 600;
+}
+.footer_bg{
+    background-color: #EEEEEE;
+}
